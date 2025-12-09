@@ -3,6 +3,7 @@ interface Config {
   PORT: number;
   JWT_SECRET: string;
   JWT_EXP_TIME: string;
+  OPENAI_API_KEY: string;
 }
 
 const mongodbUrl = process.env.MONGODB_URL;
@@ -25,11 +26,15 @@ if (!jwtExpTime) {
   throw new Error("JWT exp time missing");
 }
 
+const openAiApiKey = process.env.OPENAI_API_KEY;
+if (!openAiApiKey) throw new Error("Open AI Key Missing");
+
 const _config = {
   MONGODB_URL: mongodbUrl!,
   PORT: port,
   JWT_SECRET: jwtSecret as string,
   JWT_EXP_TIME: jwtExpTime as string,
+  OPENAI_API_KEY: openAiApiKey,
 };
 
 const config: Config = Object.freeze(_config);
