@@ -10,21 +10,29 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       required: [true, "username is required"],
+      unique: [true, "username already exisits"],
+      trim: true,
     },
     firstName: {
       type: String,
+      trim: true,
     },
     lastName: {
       type: String,
+      trim: true,
     },
     emailId: {
       type: String,
+      required: true,
+      unique: true,
+      match: [/^\S+@\S+\.\S+$/, "Please provide a valid email"],
     },
     profileImg: {
       type: String,
     },
     password: {
       type: String,
+      select: false,
     },
   },
   { timestamps: true }
@@ -32,7 +40,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.statics.hashPassword = async (password: string) => {
   if (!password) {
-    logger.error("Password is required for hashing");
+    throw new Error("Password is required for hashing");
   }
   const hashPassword = await bcrypt.hash(password, 10);
   return hashPassword;
@@ -50,13 +58,12 @@ userSchema.methods.comparePassword = async function (
   return await bcrypt.compare(password, this.password);
 };
 
-// @ts-ignore
 userSchema.methods.generateToken = function (): string {
   return jwt.sign(
     {
       _id: this._id,
       username: this.username,
-      email: this.emailId,
+      emailId: this.emailId,
     },
     config.JWT_SECRET,
     { expiresIn: config.JWT_EXP_TIME } as Object
