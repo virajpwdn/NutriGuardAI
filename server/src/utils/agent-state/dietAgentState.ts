@@ -6,6 +6,7 @@ export const DietAgentStateSchema = z.object({
   missingFields: z.array(z.string()).nullable(),
   isContentValid: z.boolean().nullable(),
   iteration: z.number().default(0),
+  feedback: z.string().nullable(),
 
   kestraResult: z.any().nullable(),
   finalPlan: z.any().nullable(),
