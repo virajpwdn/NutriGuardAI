@@ -1,5 +1,5 @@
 import { ChatOpenAI } from "@langchain/openai";
-import config from "../../config/config";
+import config from "../../../config/config";
 
 const client = new ChatOpenAI({
   model: "gpt-4.1-nano",
