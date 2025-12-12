@@ -4,6 +4,9 @@ interface Config {
   JWT_SECRET: string;
   JWT_EXP_TIME: string;
   OPENAI_API_KEY: string;
+  CLOUDINARY_CLOUD_NAME: string,
+  CLOUDINARY_API_KEY: string,
+  CLOUDINARY_API_SECRET: string
 }
 
 const mongodbUrl = process.env.MONGODB_URL;
@@ -35,6 +38,9 @@ const _config = {
   JWT_SECRET: jwtSecret as string,
   JWT_EXP_TIME: jwtExpTime as string,
   OPENAI_API_KEY: openAiApiKey,
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME || '',
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY || '',
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET || ''
 };
 
 const config: Config = Object.freeze(_config);
