@@ -5,4 +5,4 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const baseUrl = "http://localhost:2001/v1"
+export const baseUrl = "https://nutri-guard-ai-wlte.vercel.app"

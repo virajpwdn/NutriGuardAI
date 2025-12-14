@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-const socket = io("http://localhost:2001");
+const socket = io("https://nutri-guard-ai-wlte.vercel.app");
 
 const Chat = () => {
   const [messages, setMessages] = useState([
