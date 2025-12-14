@@ -26,7 +26,7 @@ export async function researchNode(state: ingredientAgentState) {
         },
       }
     );
-    console.log("OUTPUT ", response.data)k
+    console.log("OUTPUT ", response.data)
     return response.data;
   } catch (error: any) {
     console.error("Kestra Error:", error.response?.data || error.message);

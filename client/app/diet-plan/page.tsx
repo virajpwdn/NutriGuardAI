@@ -97,13 +97,21 @@ const page = () => {
                 Get Started
               </button>
             </div>
-            <div className="bg-gray-100 p-5 w-87.5 rounded-md">
+            <div className="bg-gray-300 p-5 w-87.5 rounded-md">
               <CameraIcon size={32} />
-              <h1 className="text-lg font-semibold">Scan Ingredients</h1>
+              <div className="flex items-center justify-between">
+                <h1 className="text-lg font-semibold">Scan Ingredients</h1>
+                <p className="bg-emerald-600 text-white text-xs px-3 py-1 rounded-md font-semibold">
+                  Coming Soon!
+                </p>
+              </div>
               <p className="text-sm py-5">
                 Upload a photo of food labels to instantly indentify ingredients
               </p>
-              <button className="px-4 py-2 w-full text-white bg-blue-600 rounded-md cursor-pointer">
+              <button
+                disabled
+                className="px-4 py-2 w-full text-white bg-gray-500 rounded-md cursor-pointer"
+              >
                 Get Started
               </button>
             </div>

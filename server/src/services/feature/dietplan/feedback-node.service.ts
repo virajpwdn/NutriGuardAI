@@ -22,9 +22,10 @@ export async function feedbackNode(state: DietAgentStateSchema) {
   ]);
 
   console.log("FEEDBACK RESPONSE -> ", response.content)
-
+  console.log("INSIDE FEEDBACK NODE")
   return {
     ...state,
     feedback: response.content
+    
   }
 }

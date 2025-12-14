@@ -24,8 +24,11 @@ export async function kestraDataResearch(state: DietAgentStateSchema) {
         },
       }
     );
-
-    return response.data;
+    console.log("INSIDE RESEARCH NODE")
+    return {
+      ...state,
+      kestraDataResearch: response.data
+    };
   } catch (error: any) {
     console.error("Kestra Error:", error.response?.data || error.message);
     throw error;

@@ -3,6 +3,11 @@ import React, { useState } from "react";
 import { Send } from "lucide-react";
 import { baseUrl } from "@/lib/utils";
 import axios from "axios";
+import { io } from "socket.io-client";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
+const socket = io("http://localhost:2001");
 
 const Chat = () => {
   const [messages, setMessages] = useState([
@@ -13,6 +18,7 @@ const Chat = () => {
     },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [markdown, setMarkdown] = useState("");
 
   const handleSend = async () => {
     if (inputValue.trim()) {
@@ -21,7 +27,7 @@ const Chat = () => {
         { id: messages.length + 1, text: inputValue, sender: "user" },
       ]);
       const response = await axios.post(`${baseUrl}/ai/dietplan`, {
-        inputValue,
+        data: inputValue,
       });
       if (response.data) {
         setMessages([
@@ -33,6 +39,15 @@ const Chat = () => {
       setInputValue("");
     }
   };
+
+  socket.on("diet-plan", (data) => {
+    console.log("data on frontend -> ", data);
+    setMarkdown(data.content);
+    setMessages([
+      ...messages,
+      { id: messages.length + 1, text: data.content, sender: "other" },
+    ]);
+  });
 
   return (
     <div className="flex flex-col h-screen w-full bg-white md:bg-linear-to-b md:from-gray-50 md:to-white max-w-200 mx-auto border-l border-r border-zinc-200">
@@ -60,7 +75,15 @@ const Chat = () => {
                   : "bg-gray-100 text-gray-900 rounded-bl-none shadow-sm"
               }`}
             >
-              <p>{msg.text}</p>
+              {msg.sender === "other" ? (
+                <div className="prose prose-sm md:prose-base max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {msg.text}
+                  </ReactMarkdown>
+                </div>
+              ) : (
+                <p>{msg.text}</p>
+              )}
             </div>
           </div>
         ))}

@@ -11,7 +11,7 @@ export async function extractFieldNodes(state: any) {
   const SYSTEM_PROMPT = `
          You are an input extractor for a diet plan.
     Extract ONLY structured fields. If a field is missing, do NOT guess.
-    Return JSON with:
+    Return ONLY valid JSON in a single line with no additional text:
     {
       goalType,
       cuisine,
@@ -33,21 +33,34 @@ export async function extractFieldNodes(state: any) {
 
   console.log("RESULTS FROM LLM => " + result);
 
-  const extracted = JSON.parse(result.content.toString());
+  try {
+    const extracted = JSON.parse(result.content.toString());
+    console.log("EXTRACTED CONETNT => " + extracted);
 
-  console.log("EXTRACTED CONETNT => " + extracted);
+    const missing = Object.keys(extracted).filter(
+      (k) => extracted[k] === null || extracted[k] === "" || extracted[k] === null
+    );
 
-  const missing = Object.keys(extracted).filter(
-    (k) => extracted[k] === null || extracted[k] === "" || extracted[k] === null
-  );
+    console.log("MISSING => " + missing);
 
-  console.log("MISSING => " + missing);
-
-  return {
-    ...state,
-    extracted,
-    missingFields: missing.length ? missing : null,
-    isContentValid: missing.length === 0,
-    iteration: state.iteration + (!state.isContentValid ? 1 : 0),
-  };
+    return {
+      ...state,
+      extracted,
+      missingFields: missing.length ? missing : null,
+      isContentValid: missing.length === 0,
+      iteration: state.iteration + (!state.isContentValid ? 1 : 0),
+    };
+  } catch (error) {
+    console.error("JSON parse error:", error);
+    console.error("Failed content:", result.content.toString());
+    // Return with error indication
+    return {
+      ...state,
+      extracted: null,
+      error: "Failed to parse LLM response as JSON",
+      missingFields: null,
+      isContentValid: false,
+      iteration: state.iteration + 1,
+    };
+  }
 }
