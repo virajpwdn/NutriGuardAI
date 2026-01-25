@@ -75,7 +75,7 @@ NutriGuardAI is a comprehensive AI-driven application that revolutionizes nutrit
 - **Workflow**: Kestra Integration
 
 ### Development & DevOps
-- **Package Managers**: npm / yarn / pnpm
+- **Package Managers**: npm
 - **Version Control**: Git
 - **Code Quality**: ESLint, Prettier
 - **Type Checking**: TypeScript
@@ -441,15 +441,6 @@ NutriGuardAI/
 - **Prettier**: Consistent code formatting
 - **Commit Standards**: Conventional commit messages
 
-### Testing
-
-```bash
-# Run client tests
-cd client && npm run test
-
-# Run server tests (if implemented)
-cd server && npm run test
-```
 
 ### Building for Production
 
@@ -461,54 +452,6 @@ cd client && npm run build
 cd server && npm run build
 ```
 
-## 🤝 Contributing
-
-We welcome contributions to NutriGuardAI! Please follow these guidelines:
-
-### Development Workflow
-
-1. **Fork the Repository**
-   ```bash
-   git clone https://github.com/your-username/NutriGuardAI.git
-   cd NutriGuardAI
-   ```
-
-2. **Create Feature Branch**
-   ```bash
-   git checkout -b feature/your-amazing-feature
-   ```
-
-3. **Make Changes**
-   - Follow existing code style
-   - Add/update tests if applicable
-   - Update documentation
-
-4. **Commit Changes**
-   ```bash
-   git commit -m "feat: add amazing new feature"
-   ```
-
-5. **Push and Create PR**
-   ```bash
-   git push origin feature/your-amazing-feature
-   # Create Pull Request on GitHub
-   ```
-
-### Pull Request Guidelines
-
-- Provide clear descriptions of changes
-- Include screenshots for UI changes
-- Ensure all tests pass
-- Update README if needed
-- Follow [Conventional Commits](https://conventionalcommits.org/)
-
-### Code Style
-
-- Use TypeScript for all new code
-- Follow ESLint configuration
-- Use descriptive variable/function names
-- Add JSDoc comments for complex functions
-- Maintain consistent file structure
 
 ## 📝 License
 
